@@ -37,7 +37,7 @@ export default function Posts() {
                   type="button"
                   className="ml-3 inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"
                 >
-                  <Link href={'/new-post'}>New Post</Link>
+                  <Link href={'/posts/new'}>New Post</Link>
                 </button>
               </div>
             </div>

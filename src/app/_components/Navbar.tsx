@@ -10,26 +10,36 @@ export const Navbar = () => {
   return (
     <nav className="flex justify-between items-center p-4 bg-neutral-800 dark:bg-neutral-900 text-neutral-200 dark:text-neutral-100 h-12 px-8 border-b border-border">
       <Link
-        href={'/posts'}
+        href={'/'}
         className="text-white dark:text-neutral-100 text-2xl font-bold hover:text-primary transition-colors"
       >
-        Posts
+        GOODA
       </Link>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-10">
         {loading ? (
           // Loading state
           <div className="w-32 h-6 bg-neutral-700 animate-pulse rounded" />
         ) : user ? (
           // Authenticated: Show user email and logout
-          <>
-            <span className="text-sm text-neutral-300 dark:text-neutral-400">{user.email}</span>
-            <button
-              onClick={logout}
-              className="text-white dark:text-neutral-200 hover:text-primary dark:hover:text-primary transition-colors"
-            >
-              Logout
-            </button>
-          </>
+          <div className="flex items-center gap-8">
+            <div>
+              <Link
+                href={'/posts'}
+                className="text-white dark:text-neutral-200 hover:text-primary dark:hover:text-primary transition-colors"
+              >
+                Your Posts
+              </Link>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-neutral-300 dark:text-neutral-400">{user.email}</span>
+              <button
+                onClick={logout}
+                className="text-white dark:text-neutral-200 hover:text-primary dark:hover:text-primary transition-colors"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
         ) : (
           // Not authenticated: Show login and signup
           <>
