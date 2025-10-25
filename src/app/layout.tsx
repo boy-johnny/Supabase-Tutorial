@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   title: 'Supabase Udemy Tutorial',
   description: 'Supabase Udemy Tutorial',
   icons: {
-    icon: '/logo.png',
+    icon: '/logo.ico',
+    shortcut: '/logo.ico',
+    apple: '/logo.png',
   },
 };
 
