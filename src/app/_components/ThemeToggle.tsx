@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from './ThemeProvider';
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -11,13 +11,8 @@ export function ThemeToggle() {
       className="rounded-lg p-2 hover:bg-secondary transition-colors"
       aria-label="Toggle theme"
     >
-      {theme === "light" ? (
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+      {theme === 'light' ? (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -26,12 +21,7 @@ export function ThemeToggle() {
           />
         </svg>
       ) : (
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"

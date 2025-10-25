@@ -12,20 +12,27 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Initialize from localStorage or system preference on client
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme') as Theme | null;
-      if (savedTheme) {
-        return savedTheme;
-      }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return 'light';
-  });
+  // Always initialize with 'light' for server-side rendering
+  const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    // Apply theme class to document on mount and theme change
+    // Only read localStorage on client after hydration
+    const savedTheme = localStorage.getItem('theme') as Theme | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    } else {
+      // Check system preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        setTheme('dark');
+        document.documentElement.classList.add('dark');
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    // Apply theme class when theme changes
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
