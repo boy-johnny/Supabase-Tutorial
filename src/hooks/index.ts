@@ -1,2 +1,2 @@
-// Auth hooks
 export * from './auth';
+export * from './posts';

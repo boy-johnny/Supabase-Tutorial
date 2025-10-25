@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { ErrorMessage } from '@/app/_components';
-import { useCreatePost } from '@/hooks/posts/useCreatePost';
+import { useCreatePost } from '@/hooks/';
 
 export default function NewPost() {
   const [content, setContent] = useState('');
