@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Supabase Udemy Tutorial',
   description: 'Supabase Udemy Tutorial',
+  icons: {
+    icon: '/logo.png',
+  },
 };
 
 export default function RootLayout({
