@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { createClient } from '@/utils/client';
 import { useRouter } from 'next/navigation';

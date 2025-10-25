@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { createClient } from '@/utils/client';
 import { useRouter } from 'next/navigation';
@@ -15,7 +15,9 @@ export const useAuth = () => {
     // Check current auth status
     const checkAuth = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
         setUser(user);
       } catch (error) {
         console.error('Error checking auth:', error);
@@ -28,12 +30,12 @@ export const useAuth = () => {
     checkAuth();
 
     // Listen for auth changes (login, logout, token refresh)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null);
-        setLoading(false);
-      }
-    );
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
     return () => {
       subscription.unsubscribe();
