@@ -3,31 +3,15 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { createClient } from '@/utils/client';
 import { ErrorMessage } from '@/app/_components';
-import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks/';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const router = useRouter();
-
-  const login = async () => {
-    const supabase = createClient();
-
-    const response = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (response.error) {
-      setError(response.error.message);
-    } else {
-      router.push('/posts');
-    }
-  };
+  const { login } = useAuth();
 
   return (
     <>
@@ -42,7 +26,10 @@ export default function Login() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-foreground dark:text-foreground">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-foreground dark:text-foreground"
+              >
                 Email address
               </label>
               <div className="mt-2">
@@ -61,7 +48,10 @@ export default function Login() {
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-foreground dark:text-foreground">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-foreground dark:text-foreground"
+                >
                   Password
                 </label>
               </div>
@@ -83,7 +73,7 @@ export default function Login() {
               <button
                 type="button"
                 className="flex w-full justify-center rounded-md bg-primary hover:bg-primary/90 dark:bg-primary dark:hover:bg-primary/90 px-3 py-1.5 text-sm font-semibold leading-6 text-primary-foreground shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"
-                onClick={login}
+                onClick={() => login(email, password)}
               >
                 Sign in
               </button>
@@ -92,7 +82,10 @@ export default function Login() {
           </form>
           <p className="mt-10 text-center text-sm text-muted-foreground dark:text-muted-foreground">
             Not a member?{' '}
-            <Link href={'/signup'} className="font-semibold leading-6 text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80 transition-colors">
+            <Link
+              href={'/signup'}
+              className="font-semibold leading-6 text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80 transition-colors"
+            >
               Sign Up
             </Link>
           </p>

@@ -4,27 +4,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ErrorMessage } from '@/app/_components';
-import { createClient } from '@/utils/client';
-import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks/';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const router = useRouter();
-  const signup = async () => {
-    const supabase = createClient();
-    const response = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (response.error) {
-      setError(response.error.message);
-    } else {
-      router.push('/posts');
-    }
-  };
+  const { signup } = useAuth();
 
   return (
     <>
@@ -78,7 +65,7 @@ export default function Signup() {
               <button
                 type="button"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={signup}
+                onClick={() => signup(email, password)}
               >
                 Sign Up
               </button>
