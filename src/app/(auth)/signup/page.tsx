@@ -10,8 +10,24 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const { signup } = useAuth();
+
+  const handleSignup = async () => {
+    setError('');
+    setLoading(true);
+
+    try {
+      await signup(email, password);
+      // Signup successful - will redirect via useAuth
+    } catch (err: any) {
+      console.error('Signup error:', err);
+      setError(err.message || 'Failed to sign up. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -64,10 +80,11 @@ export default function Signup() {
             <div>
               <button
                 type="button"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={() => signup(email, password)}
+                disabled={loading || !email || !password}
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                onClick={handleSignup}
               >
-                Sign Up
+                {loading ? 'Signing up...' : 'Sign Up'}
               </button>
             </div>
             <ErrorMessage error={error} />
